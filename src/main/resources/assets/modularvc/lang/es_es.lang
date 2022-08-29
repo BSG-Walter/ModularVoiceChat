@@ -20,6 +20,9 @@ mvc.config.canMute=/localvoicemute para mutear o desmutear jugadores.
 mvc.config.stereo.off=Stereo: OFF
 mvc.config.stereo.on=Stereo: ON
 
+mvc.config.suppression.off=Reduccion de ruido: OFF
+mvc.config.suppression.on=Reduccion de ruido: ON
+
 mvc.error.cantconnect=No se pudo conectar al servidor de voz, intenta reconectándote!
 mvc.error.muted=§4§lNo puedes hablar porque has sido mutedo por un admin!
 mvc.messages.connected=Conectado al servidor de voz!

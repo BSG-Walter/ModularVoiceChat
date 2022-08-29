@@ -24,3 +24,6 @@ mvc.error.muted=§4§lVous ne pouvez pas parler, parce que vous avez été rendu
 
 mvc.config.stereo.off=Stéreo: OFF
 mvc.config.stereo.on=Stéreo: ON
+
+mvc.config.suppression.off=Noise suppression: OFF
+mvc.config.suppression.on=Noise suppression: ON

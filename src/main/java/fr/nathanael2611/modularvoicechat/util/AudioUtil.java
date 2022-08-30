@@ -13,8 +13,8 @@ import java.util.List;
 public class AudioUtil
 {
 
-    public static final AudioFormat FORMAT = new AudioFormat(48000, 16, 2, true, false);
-
+    //public static final AudioFormat FORMAT = new AudioFormat(48000, 16, 2, true, false);
+    public static final AudioFormat FORMAT = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 4800, 16, 1, 2, 4800, false);
     public static Mixer findMixer(String name, Line.Info lineInfo)
     {
         Mixer defaultMixer = null;

@@ -51,7 +51,9 @@ public class Denoiser {
 
     @Nullable
     public static Denoiser createDenoiser() {
-        return Utils.createSafe(Denoiser::new, e -> Helpers.log("Failed to load RNNoise: {} " + e.getMessage()));
+        return Utils.createSafe(Denoiser::new, e -> {
+            Helpers.log("Failed to load RNNoise: {}" + e.getMessage());
+        });
     }
 
 }

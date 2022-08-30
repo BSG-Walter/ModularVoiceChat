@@ -128,6 +128,12 @@ shadowJar {
     classifier = null
     version = version + "-all"
     configurations = [project.configurations.shadow]
+    relocate 'de.maxhenkel.rnnoise4j', "de.maxhenkel.modularvoicechat.rnnoise4j"
+    dependencies {
+        exclude(dependency('net.java.dev.jna:jna'))
+        exclude(dependency('net.java.dev.jna:jna-platform'))
+        exclude(dependency('com.google.code.findbugs:jsr305'))
+    }
     //minimize()
     //configurations = [project.configurations.compile]
 }

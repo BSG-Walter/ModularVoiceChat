@@ -43,8 +43,7 @@ public class OpusLoader
             ++index;
         } while (tempLibDir.exists() && !deleteDir(tempLibDir));
         tempLibDir.mkdir();
-        OpusCodec.extractNatives(tempLibDir);
-        OpusCodec.loadNative(tempLibDir);
+        OpusCodec.setupWithTemporaryFolder();
     }
 
 

@@ -13,8 +13,9 @@ import java.util.List;
 public class AudioUtil
 {
 
-    public static final AudioFormat FORMAT = new AudioFormat(48000, 16, 2, true, false);
-
+    //public static final AudioFormat FORMAT = new AudioFormat(48000, 16, 2, true, false);
+    public static final AudioFormat FORMAT = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 48000, 16, 1, 2, 48000, false);
+    public static final int BUFFERSIZE = 960*2*2;
     public static Mixer findMixer(String name, Line.Info lineInfo)
     {
         Mixer defaultMixer = null;

@@ -38,6 +38,7 @@ public class GuiConfig extends GuiScreen
     private GuiDropDownMenu microSelector;
     private GuiDropDownMenu speakerSelector;
     private GuiConfigSlider microVolume;
+    private GuiButton suppression;
     private GuiConfigSlider speakerVolume;
     private GuiButton toggleToTalk;
     private GuiButton audioTest;
@@ -55,7 +56,8 @@ public class GuiConfig extends GuiScreen
         this.buttonList.add(this.speakerVolume = new GuiConfigSlider(this, 12, width/ 2 + 5, y + 25, ClientConfig.SPEAKER_VOLUME, 0, 150));
         this.buttonList.add(this.toggleToTalk = new GuiButton(13, width / 2 - 150 - 5, y + 50, 150, 20, "Mode: " + getSpeakMode()));
         this.buttonList.add(this.audioTest = new GuiButton(14, width / 2 + 5, y + 50, 150, 20, (audioTesting ? I18n.format("mvc.config.audio.test.on") : I18n.format("mvc.config.audio.test.off"))));
-        this.buttonList.add(new GuiButton(1, width / 2 - 155, y + 50 + 25 + 25,150 + 5 + 5 + 150, 20, I18n.format("mvc.config.joindiscord")));
+        this.buttonList.add(new GuiButton(1, width / 2 - 155, y + 50 + 25 + 25 + 25,150 + 5 + 5 + 150, 20, I18n.format("mvc.config.joindiscord")));
+        this.buttonList.add(this.suppression = new GuiButton(3, width / 2 - 155, y + 50 + 25 + 25,150 + 5 + 5 + 150, 20, getSuppressionMode()));
         this.buttonList.add(this.stereo = new GuiButton(2, width / 2 - 155, y + 50 + 25,150 + 5 + 5 + 150, 20, getStereoMode()));
         this.buttonList.add(this.microSelector = new GuiDropDownMenu(12, width / 2 - 150 - 4, y, 148, 20, MicroManager.getHandler().getMicro(), Helpers.getStringListAsArray(AudioUtil.findAudioDevices(MicroData.MIC_INFO))));
         this.buttonList.add(this.speakerSelector = new GuiDropDownMenu(13, width / 2 + 6, y, 148, 20, SpeakerManager.getHandler().getSpeaker(), Helpers.getStringListAsArray(AudioUtil.findAudioDevices(SpeakerData.SPEAKER_INFO))));
@@ -69,6 +71,11 @@ public class GuiConfig extends GuiScreen
     public String getStereoMode()
     {
         return this.config.isStereo() ? I18n.format("mvc.config.stereo.on") : I18n.format("mvc.config.stereo.off");
+    }
+
+    public String getSuppressionMode()
+    {
+        return this.config.isSuppressed() ? I18n.format("mvc.config.suppression.on") : I18n.format("mvc.config.suppression.off");
     }
 
     @Override
@@ -147,6 +154,11 @@ public class GuiConfig extends GuiScreen
             {
                 this.config.set(ClientConfig.STEREO, new JsonPrimitive(!this.config.isStereo()));
                 button.displayString = getStereoMode();
+            }
+            if(button == this.suppression)
+            {
+                this.config.set(ClientConfig.SUPPRESSION, new JsonPrimitive(!this.config.isSuppressed()));
+                button.displayString = getSuppressionMode();
             }
             if(button == this.audioTest)
             {

@@ -33,7 +33,7 @@ public class MicroData implements NoExceptionCloseable
             try
             {
                 final TargetDataLine line = (TargetDataLine) mixer.getLine(MIC_INFO);
-                line.open(AudioUtil.FORMAT, 960 * 2 * 2 * 4);
+                line.open(AudioUtil.FORMAT, AudioUtil.BUFFERSIZE * 4);
                 line.start();
                 targetLine = line;
                 return true;

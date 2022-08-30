@@ -50,7 +50,7 @@ public class SpeakerData implements NoExceptionCloseable
             try
             {
                 final SourceDataLine line = (SourceDataLine) mixer.getLine(SPEAKER_INFO);
-                line.open(AudioUtil.FORMAT, 960 * 2 * 2 * 4);
+                line.open(AudioUtil.FORMAT, AudioUtil.BUFFERSIZE * 4);
                 line.start();
                 final SpeakerLineInfo lineInfo = new SpeakerLineInfo(line);
                 lineInfo.setMasterVolume(volume);

@@ -56,7 +56,7 @@ public class MicroRecorder implements NoExceptionCloseable
         }
         executor.execute(() ->
         {
-            final byte[] buffer = new byte[960 * 2 * 2];
+            final byte[] buffer = new byte[AudioUtil.BUFFERSIZE];
             while (send && microData.isAvailable())
             {
                 byte[] samples = microData.read(buffer);

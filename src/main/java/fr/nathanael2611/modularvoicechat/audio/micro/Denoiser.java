@@ -18,11 +18,11 @@ public class Denoiser {
         state = RNNoise.INSTANCE.rnnoise_create(null);
     }
 
-    public byte[] denoise(byte[] audio) {
+    public short[] denoise(short[] audio) {
         if (closed) {
             throw new IllegalStateException("Tried to denoise with a closed denoiser");
         }
-        float[] data = Utils.bytesToFloats(audio);
+        float[] data = Utils.shortsToFloats(audio);
         if (data.length % FRAME_SIZE != 0) {
             throw new IllegalArgumentException("Denoising data frame size is not divisible by 480");
         }
@@ -34,7 +34,7 @@ public class Denoiser {
             RNNoise.INSTANCE.rnnoise_process_frame(state, denoisedChunk, chunk);
             System.arraycopy(denoisedChunk, 0, denoised, FRAME_SIZE * i, FRAME_SIZE);
         }
-        return Utils.floatsToBytes(denoised);
+        return Utils.floatsToShorts(denoised);
     }
 
     public boolean isClosed() {

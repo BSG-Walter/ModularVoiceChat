@@ -10,13 +10,13 @@ public class VoiceRecordedEvent extends Event
 {
 
     /* The recorded audio-sample */
-    private byte[] recordedSamples;
+    private short[] recordedSamples;
 
     /**
      * Constructor
      * @param recordedSamples the recorder audio-samples
      */
-    public VoiceRecordedEvent(byte[] recordedSamples)
+    public VoiceRecordedEvent(short[] recordedSamples)
     {
         this.recordedSamples = recordedSamples;
     }
@@ -35,7 +35,7 @@ public class VoiceRecordedEvent extends Event
      * Getter for recorded samples
      * @return the recorded samples
      */
-    public byte[] getRecordedSamples()
+    public short[] getRecordedSamples()
     {
         return recordedSamples;
     }
@@ -44,7 +44,7 @@ public class VoiceRecordedEvent extends Event
      * Used to set the recorded samples to a new value
      * @param recordedSamples the new recorded samples
      */
-    public void setRecordedSamples(byte[] recordedSamples)
+    public void setRecordedSamples(short[] recordedSamples)
     {
         this.recordedSamples = recordedSamples;
     }

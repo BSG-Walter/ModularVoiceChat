@@ -4,6 +4,7 @@ import javax.sound.sampled.*;
 
 import fr.nathanael2611.modularvoicechat.audio.api.NoExceptionCloseable;
 import fr.nathanael2611.modularvoicechat.util.AudioUtil;
+import fr.nathanael2611.modularvoicechat.util.Utils;
 
 /**
  *
@@ -16,7 +17,6 @@ public class MicroData implements NoExceptionCloseable
 
     private Mixer mixer;
     private TargetDataLine targetLine;
-
     private int volume;
     private int multiplier;
 
@@ -116,14 +116,15 @@ public class MicroData implements NoExceptionCloseable
         }
     }
 
-    public byte[] read(byte[] array)
+    public short[] read(short[] array)
     {
+        byte[] tempBuffer = Utils.shortsToBytes(array);
         if (isAvailable())
         {
-            targetLine.read(array, 0, array.length);
-            AudioUtil.changeVolume(array, volume, multiplier);
+            targetLine.read(tempBuffer, 0, tempBuffer.length);
+            AudioUtil.changeVolume(tempBuffer, volume, multiplier);
         }
-        return array;
+        return Utils.bytesToShorts(tempBuffer);
     }
 
     @Override

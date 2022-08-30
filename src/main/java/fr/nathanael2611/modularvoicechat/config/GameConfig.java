@@ -2,6 +2,7 @@ package fr.nathanael2611.modularvoicechat.config;
 
 import com.google.common.collect.Maps;
 import com.google.gson.*;
+import de.maxhenkel.opus4j.Opus;
 import fr.nathanael2611.modularvoicechat.util.Helpers;
 import org.apache.commons.io.FileUtils;
 
@@ -109,5 +110,17 @@ public abstract class GameConfig
             this.set(prop, prop.getDefaultValue());
         }
     }
+    public enum Codec {
+        VOIP(Opus.OPUS_APPLICATION_VOIP), AUDIO(Opus.OPUS_APPLICATION_AUDIO), RESTRICTED_LOWDELAY(Opus.OPUS_APPLICATION_RESTRICTED_LOWDELAY);
 
+        private final int value;
+
+        Codec(int value) {
+            this.value = value;
+        }
+
+        public int getOpusValue() {
+            return value;
+        }
+    }
 }

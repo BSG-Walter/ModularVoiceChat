@@ -5,6 +5,8 @@ import fr.nathanael2611.modularvoicechat.api.VoiceProperties;
 import fr.nathanael2611.modularvoicechat.audio.api.NoExceptionCloseable;
 import fr.nathanael2611.modularvoicechat.audio.api.IAudioDecoder;
 import fr.nathanael2611.modularvoicechat.audio.impl.OpusDecoder;
+import fr.nathanael2611.modularvoicechat.audio.impl.OpusManager;
+import fr.nathanael2611.modularvoicechat.util.Utils;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.util.concurrent.ExecutorService;
@@ -24,7 +26,7 @@ public class SpeakerBufferPusher implements NoExceptionCloseable
     public SpeakerBufferPusher(ExecutorService executor, int id, SpeakerData speakerData)
     {
         this.buffer = new SpeakerBuffer(10);
-        this.decoder = new OpusDecoder(4800, 2, 20, 1000);
+        this.decoder = OpusManager.createDecoder();
         this.future = executor.submit(() ->
         {
             while (!Thread.currentThread().isInterrupted())
@@ -56,7 +58,7 @@ public class SpeakerBufferPusher implements NoExceptionCloseable
         push(decoder.decoder(opusPacket), volumePercent, properties);
     }
 
-    private void push(byte[] packet, int volumePercent, VoiceProperties properties)
+    private void push(short[] packet, int volumePercent, VoiceProperties properties)
     {
         buffer.pushPacket(packet, volumePercent, properties);
     }

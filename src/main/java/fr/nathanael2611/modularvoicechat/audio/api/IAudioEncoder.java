@@ -2,9 +2,11 @@ package fr.nathanael2611.modularvoicechat.audio.api;
 
 public interface IAudioEncoder extends NoExceptionCloseable {
 	
-	byte[] encode(byte[] pcm);
+	byte[] encode(short[] pcm);
 	
 	byte[] silence();
+
+	boolean isClosed();
 
 	int encoderId();
 	

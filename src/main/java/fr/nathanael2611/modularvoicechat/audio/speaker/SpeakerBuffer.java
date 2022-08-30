@@ -29,7 +29,7 @@ public class SpeakerBuffer
         }
     }
 
-    public void pushPacket(byte[] packet, int volumePercent, VoiceProperties properties)
+    public void pushPacket(short[] packet, int volumePercent, VoiceProperties properties)
     {
         AudioEntry entry = new AudioEntry(packet, volumePercent, properties);
         if (!queue.offer(entry))
@@ -51,13 +51,13 @@ public class SpeakerBuffer
 
     static class AudioEntry
     {
-        private byte[] packet;
+        private short[] packet;
         private int volumePercent;
         private VoiceProperties properties;
 
         private boolean end;
 
-        AudioEntry(byte[] packet, int volumePercent, VoiceProperties properties)
+        AudioEntry(short[] packet, int volumePercent, VoiceProperties properties)
         {
             this.packet = packet;
             this.volumePercent = volumePercent;
@@ -82,7 +82,7 @@ public class SpeakerBuffer
             return volumePercent;
         }
 
-        byte[] getPacket()
+        short[] getPacket()
         {
             return packet;
         }

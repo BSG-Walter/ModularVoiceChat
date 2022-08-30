@@ -7,6 +7,9 @@ import fr.nathanael2611.modularvoicechat.api.VoiceRecordedEvent;
 import fr.nathanael2611.modularvoicechat.audio.api.NoExceptionCloseable;
 import fr.nathanael2611.modularvoicechat.audio.api.IAudioEncoder;
 import fr.nathanael2611.modularvoicechat.audio.impl.OpusEncoder;
+import fr.nathanael2611.modularvoicechat.audio.impl.OpusEncoderMode;
+import fr.nathanael2611.modularvoicechat.audio.impl.OpusManager;
+import fr.nathanael2611.modularvoicechat.client.voice.Microphone;
 import fr.nathanael2611.modularvoicechat.config.ClientConfig;
 import fr.nathanael2611.modularvoicechat.proxy.ClientProxy;
 import fr.nathanael2611.modularvoicechat.util.*;
@@ -23,7 +26,6 @@ import java.util.function.Consumer;
  */
 public class MicroRecorder implements NoExceptionCloseable
 {
-
     private final ExecutorService executor = Executors.newSingleThreadExecutor(ThreadUtil.createDaemonFactory("micro recorder"));
 
     private final MicroData microData;
@@ -39,7 +41,7 @@ public class MicroRecorder implements NoExceptionCloseable
         this.microData = microData;
         this.opusPacketConsumer = opusPacketConsumer;
 
-        this.encoder = new OpusEncoder(48000, 2, 20, bitrate, 0, 1000);
+        this.encoder = OpusManager.createEncoder(OpusManager.getEncoderMode());
         this.denoiser = Denoiser.createDenoiser();
     }
 
@@ -56,15 +58,15 @@ public class MicroRecorder implements NoExceptionCloseable
         }
         executor.execute(() ->
         {
-            final byte[] buffer = new byte[960 * 2 * 2];
+            final short[] buffer = new short[960 * 2 * 2];
             while (send && microData.isAvailable())
             {
-                byte[] samples = microData.read(buffer);
+                short[] samples = microData.read(buffer);
                 {
                     samples = denoiseIfEnabled(samples);
                     VoiceRecordedEvent event = new VoiceRecordedEvent(samples);
                     MinecraftForge.EVENT_BUS.post(event);
-                    byte[] recordedSamples = event.getRecordedSamples();
+                    short[] recordedSamples = event.getRecordedSamples();
                     if(!event.isCanceled())
                     {
                         opusPacketConsumer.accept(encoder.encode(recordedSamples));
@@ -74,7 +76,7 @@ public class MicroRecorder implements NoExceptionCloseable
             ThreadUtil.execute(10, 20, () -> opusPacketConsumer.accept(encoder.silence()));
         });
     }
-    public byte[] denoiseIfEnabled(byte[] audio) {
+    public short[] denoiseIfEnabled(short[] audio) {
         if (denoiser != null && ClientProxy.getConfig().isSuppressed()) {
             return denoiser.denoise(audio);
         }
@@ -98,6 +100,6 @@ public class MicroRecorder implements NoExceptionCloseable
             denoiser.close();
         }
         executor.shutdown();
-        encoder.close();
+        if (encoder != null) encoder.close();
     }
 }

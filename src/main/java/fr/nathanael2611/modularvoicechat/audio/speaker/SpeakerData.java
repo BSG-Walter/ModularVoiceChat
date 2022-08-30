@@ -4,6 +4,7 @@ import fr.nathanael2611.modularvoicechat.audio.api.NoExceptionCloseable;
 import fr.nathanael2611.modularvoicechat.proxy.ClientProxy;
 import fr.nathanael2611.modularvoicechat.util.AudioUtil;
 import fr.nathanael2611.modularvoicechat.util.ThreadUtil;
+import fr.nathanael2611.modularvoicechat.util.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -134,7 +135,7 @@ public class SpeakerData implements NoExceptionCloseable
         }
     }
 
-    public byte[] write(int id, byte[] array, int volumePercent)
+    public short[] write(int id, short[] array, int volumePercent)
     {
         if (isAvailable(id))
         {
@@ -159,7 +160,7 @@ public class SpeakerData implements NoExceptionCloseable
                 }
             }
             lineInfo.setMasterVolume(volumePercent);
-            lineInfo.getSourceDataLine().write(array, 0, array.length);
+            lineInfo.getSourceDataLine().write(Utils.shortsToBytes(array), 0, array.length);
             //lineInfo.getSourceDataLine().drain();
         }
         return array;

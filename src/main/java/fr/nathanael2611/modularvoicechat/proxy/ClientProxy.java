@@ -2,11 +2,10 @@ package fr.nathanael2611.modularvoicechat.proxy;
 
 import fr.nathanael2611.modularvoicechat.ModularVoiceChat;
 import fr.nathanael2611.modularvoicechat.audio.AudioTester;
+import fr.nathanael2611.modularvoicechat.audio.impl.OpusManager;
 import fr.nathanael2611.modularvoicechat.client.ClientEventHandler;
 import fr.nathanael2611.modularvoicechat.config.ClientConfig;
-import fr.nathanael2611.modularvoicechat.server.command.VoiceMute;
 import fr.nathanael2611.modularvoicechat.server.command.VoiceMuteClient;
-import fr.nathanael2611.modularvoicechat.util.OpusLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.KeyBinding;
@@ -41,7 +40,7 @@ public class ClientProxy extends CommonProxy
         config = new ClientConfig(new File(ModularVoiceChat.modConfigDir, "/ClientConfig.json"));
         ClientCommandHandler.instance.registerCommand(new VoiceMuteClient());
 
-        if(!OpusLoader.loadOpus())
+        if(!OpusManager.isNativeOpusCompatible())
         {
             JOptionPane.showMessageDialog(null, "\n" + "Opus initialization failed. ModularVoiceChat will not work.", "Opus initialization error", JOptionPane.ERROR_MESSAGE);
             FMLCommonHandler.instance().exitJava(0, true);

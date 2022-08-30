@@ -1,11 +1,11 @@
 package fr.nathanael2611.modularvoicechat.client.gui;
 
 import com.google.gson.JsonPrimitive;
+import fr.nathanael2611.modularvoicechat.client.voice.audio.MicroManager;
 import net.minecraft.client.resources.I18n;
 import fr.nathanael2611.modularvoicechat.ModularVoiceChat;
 import fr.nathanael2611.modularvoicechat.audio.AudioTester;
 import fr.nathanael2611.modularvoicechat.client.ClientEventHandler;
-import fr.nathanael2611.modularvoicechat.client.voice.audio.MicroManager;
 import fr.nathanael2611.modularvoicechat.client.voice.audio.SpeakerManager;
 import fr.nathanael2611.modularvoicechat.config.ClientConfig;
 import fr.nathanael2611.modularvoicechat.proxy.ClientProxy;
@@ -17,7 +17,6 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.text.TextFormatting;
 
 import java.awt.*;
 import java.io.IOException;

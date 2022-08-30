@@ -10,7 +10,7 @@ public class VoicePlayEvent extends Event
 {
 
     /* The recorded audio-sample */
-    private byte[] audioSamples;
+    private short[] audioSamples;
     /* The volume that we want the samples to be played */
     private int volumePercent;
     /* The audio assigned properties */
@@ -22,7 +22,7 @@ public class VoicePlayEvent extends Event
      * @param volumePercent volume that we want the samples to be played
      * @param properties the audio assigned properties
      */
-    public VoicePlayEvent(byte[] audioSamples, int volumePercent, VoiceProperties properties)
+    public VoicePlayEvent(short[] audioSamples, int volumePercent, VoiceProperties properties)
     {
         this.audioSamples = audioSamples;
         this.volumePercent = volumePercent;
@@ -43,7 +43,7 @@ public class VoicePlayEvent extends Event
      * Getter for the audio samples
      * @return the audio samples
      */
-    public byte[] getAudioSamples()
+    public short[] getAudioSamples()
     {
         return audioSamples;
     }
@@ -52,7 +52,7 @@ public class VoicePlayEvent extends Event
      * Used to set audio samples to a new value
      * @param audioSamples new audio samples
      */
-    public void setAudioSamples(byte[] audioSamples)
+    public void setAudioSamples(short[] audioSamples)
     {
         this.audioSamples = audioSamples;
     }

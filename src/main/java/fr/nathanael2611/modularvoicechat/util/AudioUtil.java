@@ -78,9 +78,9 @@ public class AudioUtil
         }
     }
 
-    public static byte[] adjustVolume(byte[] audioSamples, float volume)
+    public static short[] adjustVolume(short[] audioSamples, float volume)
     {
-        byte[] array = new byte[audioSamples.length];
+        short[] array = new short[audioSamples.length];
         for (int i = 0; i < array.length; i += 2)
         {
             // convert byte pair to int
@@ -91,8 +91,8 @@ public class AudioUtil
             short res = (short) (buf1 | buf2);
             res = (short) (res * volume);
             // convert back
-            array[i] = (byte) res;
-            array[i + 1] = (byte) (res >> 8);
+            //array[i] = (byte) res;
+            //array[i + 1] = (byte) (res >> 8);
 
         }
         return array;

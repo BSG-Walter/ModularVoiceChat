@@ -16,6 +16,7 @@ import fr.nathanael2611.modularvoicechat.util.*;
 import net.minecraftforge.common.MinecraftForge;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
@@ -58,12 +59,12 @@ public class MicroRecorder implements NoExceptionCloseable
         }
         executor.execute(() ->
         {
-            final short[] buffer = new short[960 * 2 * 2];
+            final short[] buffer = new short[4096];
             while (send && microData.isAvailable())
             {
                 short[] samples = microData.read(buffer);
                 {
-                    samples = denoiseIfEnabled(samples);
+                    //samples = denoiseIfEnabled(samples);
                     VoiceRecordedEvent event = new VoiceRecordedEvent(samples);
                     MinecraftForge.EVENT_BUS.post(event);
                     short[] recordedSamples = event.getRecordedSamples();

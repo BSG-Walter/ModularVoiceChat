@@ -14,8 +14,11 @@ import fr.nathanael2611.modularvoicechat.proxy.ClientProxy;
 import fr.nathanael2611.modularvoicechat.audio.api.NoExceptionCloseable;
 import fr.nathanael2611.modularvoicechat.audio.micro.MicroData;
 import fr.nathanael2611.modularvoicechat.audio.micro.MicroRecorder;
+import fr.nathanael2611.modularvoicechat.util.Helpers;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
+
+import java.util.Arrays;
 
 public class MicroHandler implements NoExceptionCloseable
 {
@@ -40,6 +43,7 @@ public class MicroHandler implements NoExceptionCloseable
         {
             if(GuiConfig.audioTesting && opusPacket != null)
             {
+                Helpers.log("send " + Arrays.toString(opusPacket));
                 AudioTester.speaker.receiveVoicePacket(0, opusPacket, 100, VoiceProperties.empty());
             }
             else if(this.lastAudioTesting || opusPacket == null)

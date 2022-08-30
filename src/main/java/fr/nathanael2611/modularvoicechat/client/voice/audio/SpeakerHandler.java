@@ -10,6 +10,9 @@ import fr.nathanael2611.modularvoicechat.audio.speaker.SpeakerData;
 import fr.nathanael2611.modularvoicechat.audio.speaker.SpeakerPlayer;
 import fr.nathanael2611.modularvoicechat.proxy.CommonProxy;
 import fr.nathanael2611.modularvoicechat.util.Helpers;
+import org.apache.logging.log4j.core.tools.picocli.CommandLine;
+
+import java.util.Arrays;
 
 public class SpeakerHandler implements NoExceptionCloseable
 {

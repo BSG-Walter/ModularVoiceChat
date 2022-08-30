@@ -6,9 +6,11 @@ import fr.nathanael2611.modularvoicechat.audio.api.NoExceptionCloseable;
 import fr.nathanael2611.modularvoicechat.audio.api.IAudioDecoder;
 import fr.nathanael2611.modularvoicechat.audio.impl.OpusDecoder;
 import fr.nathanael2611.modularvoicechat.audio.impl.OpusManager;
+import fr.nathanael2611.modularvoicechat.util.Helpers;
 import fr.nathanael2611.modularvoicechat.util.Utils;
 import net.minecraftforge.common.MinecraftForge;
 
+import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
@@ -34,6 +36,7 @@ public class SpeakerBufferPusher implements NoExceptionCloseable
                 if (speakerData.isAvailable(id) && speakerData.freeBuffer(id) > 0)
                 {
                     SpeakerBuffer.AudioEntry entry = buffer.getNextPacket();
+                    Helpers.log("data disponible = " + Arrays.toString(entry.getPacket()));
                     if(entry.isEnd())
                     {
                         speakerData.flush(id);
@@ -43,9 +46,12 @@ public class SpeakerBufferPusher implements NoExceptionCloseable
                     {
                         VoicePlayEvent event = new VoicePlayEvent(entry.getPacket(), entry.getVolumePercent(), entry.getProperties());
                         MinecraftForge.EVENT_BUS.post(event);
+                        Helpers.log("eebent");
                         if (!event.isCanceled())
                         {
                             speakerData.write(id, event.getAudioSamples(), event.getVolumePercent());
+                            Helpers.log("write = " + Arrays.toString(event.getAudioSamples()));
+                            Helpers.log("volume = " + event.getVolumePercent());
                         }
                     }
                 }
@@ -55,7 +61,10 @@ public class SpeakerBufferPusher implements NoExceptionCloseable
 
     public void decodePush(byte[] opusPacket, int volumePercent, VoiceProperties properties)
     {
-        push(decoder.decoder(opusPacket), volumePercent, properties);
+        Helpers.log("antes de decode " + Arrays.toString(opusPacket));
+        short[] decodedPacket = decoder.decoder(opusPacket);
+        Helpers.log("despues de decode " + Arrays.toString(decodedPacket));
+        push(decodedPacket, volumePercent, properties);
     }
 
     private void push(short[] packet, int volumePercent, VoiceProperties properties)

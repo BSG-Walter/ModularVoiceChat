@@ -4,6 +4,7 @@ import javax.sound.sampled.*;
 
 import fr.nathanael2611.modularvoicechat.audio.api.NoExceptionCloseable;
 import fr.nathanael2611.modularvoicechat.util.AudioUtil;
+import fr.nathanael2611.modularvoicechat.util.Helpers;
 import fr.nathanael2611.modularvoicechat.util.Utils;
 
 /**
@@ -20,6 +21,7 @@ public class MicroData implements NoExceptionCloseable
     private int volume;
     private int multiplier;
 
+
     public MicroData(String microName, int volume)
     {
         setMixer(microName);
@@ -33,7 +35,7 @@ public class MicroData implements NoExceptionCloseable
             try
             {
                 final TargetDataLine line = (TargetDataLine) mixer.getLine(MIC_INFO);
-                line.open(AudioUtil.FORMAT, 960 * 2 * 2 * 4);
+                line.open(AudioUtil.FORMAT);
                 line.start();
                 targetLine = line;
                 return true;
@@ -122,7 +124,7 @@ public class MicroData implements NoExceptionCloseable
         if (isAvailable())
         {
             targetLine.read(tempBuffer, 0, tempBuffer.length);
-            AudioUtil.changeVolume(tempBuffer, volume, multiplier);
+            //AudioUtil.changeVolume(tempBuffer, volume, multiplier);
         }
         return Utils.bytesToShorts(tempBuffer);
     }

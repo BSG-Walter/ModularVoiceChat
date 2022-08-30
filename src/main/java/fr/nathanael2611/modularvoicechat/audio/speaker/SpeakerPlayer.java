@@ -2,8 +2,10 @@ package fr.nathanael2611.modularvoicechat.audio.speaker;
 
 import fr.nathanael2611.modularvoicechat.api.VoiceProperties;
 import fr.nathanael2611.modularvoicechat.audio.api.NoExceptionCloseable;
+import fr.nathanael2611.modularvoicechat.util.Helpers;
 import fr.nathanael2611.modularvoicechat.util.ThreadUtil;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -30,6 +32,7 @@ public class SpeakerPlayer implements NoExceptionCloseable
 
     public void accept(int id, byte[] opusPacket, int volumePercent, VoiceProperties properties)
     {
+        Helpers.log("accept" + Arrays.toString(opusPacket));
         if (speakerData.isAvailable(id))
         {
             if(opusPacket == null)

@@ -1,11 +1,9 @@
 package fr.nathanael2611.modularvoicechat.network.vanilla;
 
 import fr.nathanael2611.modularvoicechat.ModularVoiceChat;
-import fr.nathanael2611.modularvoicechat.util.Helpers;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -53,8 +51,8 @@ public class VanillaPacketHandler
         this.network = NetworkRegistry.INSTANCE.newSimpleChannel(ModularVoiceChat.MOD_ID.toUpperCase());
 
         registerPacket(PacketConnectVoice.Message.class, PacketConnectVoice.class, Side.CLIENT);
-        registerPacket(PacketAudioSample.Message.class, PacketAudioSample.class, Side.CLIENT);
-        registerPacket(PacketAudioSample.Message.class, PacketAudioSample.class, Side.SERVER);
+        registerPacket(PacketAudioSampleClient.Message.class, PacketAudioSampleClient.class, Side.CLIENT);
+        registerPacket(PacketAudioSampleServer.Message.class, PacketAudioSampleServer.class, Side.SERVER);
 
     }
 

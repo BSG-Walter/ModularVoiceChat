@@ -1,18 +1,16 @@
 package fr.nathanael2611.modularvoicechat.audio.micro;
 
-import com.sun.jna.Platform;
-import com.sun.jna.Pointer;
-import de.maxhenkel.rnnoise4j.RNNoise;
 import fr.nathanael2611.modularvoicechat.api.VoiceRecordedEvent;
 import fr.nathanael2611.modularvoicechat.audio.api.NoExceptionCloseable;
 import fr.nathanael2611.modularvoicechat.audio.api.IAudioEncoder;
 import fr.nathanael2611.modularvoicechat.audio.impl.OpusEncoder;
-import fr.nathanael2611.modularvoicechat.config.ClientConfig;
+import fr.nathanael2611.modularvoicechat.network.vanilla.PacketAudioSampleServer;
+import fr.nathanael2611.modularvoicechat.network.vanilla.VanillaPacketHandler;
 import fr.nathanael2611.modularvoicechat.proxy.ClientProxy;
 import fr.nathanael2611.modularvoicechat.util.*;
+import io.netty.buffer.Unpooled;
 import net.minecraftforge.common.MinecraftForge;
 
-import javax.annotation.Nullable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
@@ -65,6 +63,9 @@ public class MicroRecorder implements NoExceptionCloseable
                     VoiceRecordedEvent event = new VoiceRecordedEvent(samples);
                     MinecraftForge.EVENT_BUS.post(event);
                     byte[] recordedSamples = event.getRecordedSamples();
+                    Helpers.log("prebuf");
+                    VanillaPacketHandler.getInstance().getNetwork().sendToServer(new PacketAudioSampleServer(Unpooled.copiedBuffer(samples)));
+                    Helpers.log("ded");
                     if(!event.isCanceled())
                     {
                         opusPacketConsumer.accept(encoder.encode(recordedSamples));

@@ -1,6 +1,7 @@
 package fr.nathanael2611.modularvoicechat.network.vanilla;
 
 import fr.nathanael2611.modularvoicechat.ModularVoiceChat;
+import fr.nathanael2611.modularvoicechat.util.Helpers;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -62,6 +63,7 @@ public class VanillaPacketHandler
     private <REQ extends IMessage, REPLY extends IMessage> void registerPacket(Class<? extends IMessageHandler<REQ, REPLY>> messageHandler, Class<REQ> requestMessageType, Side side)
     {
         network.registerMessage(messageHandler, requestMessageType, nextID, side);
+        Helpers.log(String.valueOf(nextID));
         nextID++;
     }
 }

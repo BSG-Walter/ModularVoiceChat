@@ -64,7 +64,8 @@ public class MicroRecorder implements NoExceptionCloseable
                     MinecraftForge.EVENT_BUS.post(event);
                     byte[] recordedSamples = event.getRecordedSamples();
                     Helpers.log("prebuf");
-                    VanillaPacketHandler.getInstance().getNetwork().sendToServer(new PacketAudioSampleServer(Unpooled.copiedBuffer(samples)));
+                    Helpers.log(String.valueOf(samples.length));
+                    VanillaPacketHandler.getInstance().getNetwork().sendToServer(new PacketAudioSampleServer(samples));
                     Helpers.log("ded");
                     if(!event.isCanceled())
                     {

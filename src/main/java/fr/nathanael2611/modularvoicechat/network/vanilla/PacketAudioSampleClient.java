@@ -9,33 +9,31 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PacketAudioSampleClient implements IMessage {
-    private ByteBuf opusBytes;
+    private byte[] opusBytes = new byte[3840];
 
     public PacketAudioSampleClient(){
 
     }
-    public PacketAudioSampleClient(ByteBuf buf){
+    public PacketAudioSampleClient(byte[] buf){
         Helpers.log("creating");
         this.opusBytes = buf;
+        Helpers.log("endCreating client");
     }
-
     @Override
     public void fromBytes(ByteBuf buf) {
         Helpers.log("frombytes");
-        this.opusBytes.clear();
-        this.opusBytes.writeBytes(buf);
+        buf.readBytes(this.opusBytes);
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
         Helpers.log("tobytes");
-        buf.clear();
         buf.writeBytes(this.opusBytes);
     }
 
     public static class Message implements IMessageHandler<PacketAudioSampleClient, IMessage>
     {
-        @SideOnly(Side.CLIENT)
+        //@SideOnly(Side.CLIENT)
         @Override
         public IMessage onMessage(PacketAudioSampleClient message, MessageContext ctx)
         {

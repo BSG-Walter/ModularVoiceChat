@@ -12,7 +12,6 @@ import java.util.Random;
 
 public class ServerEventHandler
 {
-
     @SubscribeEvent
     public void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event)
     {
@@ -23,7 +22,6 @@ public class ServerEventHandler
         }
 
     }
-
 
 
 }

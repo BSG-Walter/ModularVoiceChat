@@ -71,9 +71,6 @@ repositories {
 dependencies {
     minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2860'
 
-    implementation "de.maxhenkel.rnnoise4j:rnnoise4j:1.0.1"
-    shadow "de.maxhenkel.rnnoise4j:rnnoise4j:1.0.1"
-
     shadow fileTree(dir: 'libs', include: '*.jar')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 }

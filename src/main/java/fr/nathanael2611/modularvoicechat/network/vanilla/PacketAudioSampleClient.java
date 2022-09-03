@@ -33,12 +33,11 @@ public class PacketAudioSampleClient implements IMessage {
 
     public static class Message implements IMessageHandler<PacketAudioSampleClient, IMessage>
     {
-        //@SideOnly(Side.CLIENT)
+        @SideOnly(Side.CLIENT)
         @Override
         public IMessage onMessage(PacketAudioSampleClient message, MessageContext ctx)
         {
             Helpers.log("esclient");
-            Helpers.log(String.valueOf(message.opusBytes));
             return null;
         }
     }

@@ -24,9 +24,6 @@ public class PacketAudioSampleServer implements IMessage {
     @Override
     public void fromBytes(ByteBuf buf) {
         Helpers.log("frombytes");
-        Helpers.log(String.valueOf(buf.maxCapacity()));
-        Helpers.log(String.valueOf(buf.readableBytes()));
-        Helpers.log(String.valueOf(buf));
         buf.readBytes(this.opusBytes);
     }
 
@@ -37,12 +34,12 @@ public class PacketAudioSampleServer implements IMessage {
     }
     public static class Message implements IMessageHandler<PacketAudioSampleServer, IMessage>
     {
-        //@SideOnly(Side.SERVER)
+        @SideOnly(Side.SERVER)
         @Override
         public IMessage onMessage(PacketAudioSampleServer message, MessageContext ctx)
         {
             Helpers.log("esserver");
-            Helpers.log(String.valueOf(message.opusBytes));
+            VanillaPacketHandler.getInstance().getNetwork().sendTo(new PacketAudioSampleClient(message.opusBytes), ctx.getServerHandler().player);
             return null;
         }
     }

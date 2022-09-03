@@ -37,7 +37,7 @@ public class VoiceClient
      * @param playerName the player name
      * @param port the server port
      */
-    VoiceClient(String playerName, String host, int port)
+    protected VoiceClient(String playerName, String host, int port)
     {
         this.port = port;
         this.host = host;
